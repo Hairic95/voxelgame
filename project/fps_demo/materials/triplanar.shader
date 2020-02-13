@@ -72,9 +72,9 @@ vec4 triplanar_texture(sampler2D p_sampler, vec3 p_weights, vec3 p_triplanar_pos
         return samp;
 }
 
-/* Optional shader function that is supposed to help patch seams, but I think it looks slightly worse.
-*  To use it, uncomment this block, and the call in the first line of vertex()
-
+// Optional shader function that is supposed to help patch seams, but I think it looks slightly worse.
+//  To use it, uncomment this block, and the function call in the first line of vertex()
+/*
 // Bitmask telling which of the 6 faces of the block are bordered by a block of lower resolution
 uniform int u_transition_mask;
 

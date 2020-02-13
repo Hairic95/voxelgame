@@ -23,7 +23,9 @@ func _ready():
 	if(type != BULLET_TYPE.BALL):
 		terrain = get_node("../VoxelTerrain")
 	
-	bounce = 2.0
+	var pmat = PhysicsMaterial.new()
+	pmat.bounce = .5
+	physics_material_override = pmat
 	
 	# Enable bullet collision detection
 	contact_monitor = true
@@ -72,9 +74,6 @@ func paint_sphere(center, fradius, type):
 	# Return if trying to add a block within MIN_DISTANCE of the player
 	if type == BULLET_TYPE.ADD and (center - $"../Player".global_transform.origin).length() <= fradius+MIN_DISTANCE:
 		return
-	
-	if "smooth_meshing_enabled" in terrain and terrain.smooth_meshing_enabled:
-		vt.channel = VoxelBuffer.CHANNEL_SDF
 	
 	if(type == BULLET_TYPE.ADD):
 		vt.mode = VoxelTool.MODE_ADD

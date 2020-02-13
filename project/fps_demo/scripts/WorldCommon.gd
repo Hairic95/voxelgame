@@ -3,16 +3,17 @@ extends Spatial
 func _init():
 	VisualServer.set_debug_generate_wireframes(true)
 
+
 func _ready():
 	randomize()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _physics_process(delta):
-	
 	#### Update HUD
-	$UI/VBox/FPS.text = "FPS: " + String(Engine.get_frames_per_second())	
-	$UI/VBox/Position.text = "Position: " + String($Player.global_transform.origin)	
+	$UI/VBox/FPS.text = "FPS: " + String(Engine.get_frames_per_second())
+	var pos = $Player.global_transform.origin
+	$UI/VBox/Position.text = "Position: (%.1f, %.1f, %.1f)" % [pos.x, pos.y, pos.z]
 
 
 func _input(event):

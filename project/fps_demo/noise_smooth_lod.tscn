@@ -9,49 +9,11 @@
 
 [sub_resource type="OpenSimplexNoise" id=1]
 
-[sub_resource type="VoxelStreamNoise" id=2]
+[sub_resource type="VoxelGeneratorNoise" id=2]
 noise = SubResource( 1 )
-channel = 1
 
 [node name="World" type="Spatial"]
 script = ExtResource( 6 )
-
-[node name="UI_Noise" type="VBoxContainer" parent="."]
-margin_top = 37.0
-margin_right = 40.0
-margin_bottom = 123.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Seed" type="Label" parent="UI_Noise"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "Seed: "
-
-[node name="Octaves" type="Label" parent="UI_Noise"]
-margin_top = 18.0
-margin_right = 40.0
-margin_bottom = 32.0
-text = "Seed: "
-
-[node name="Period" type="Label" parent="UI_Noise"]
-margin_top = 36.0
-margin_right = 40.0
-margin_bottom = 50.0
-text = "Seed: "
-
-[node name="Persistence" type="Label" parent="UI_Noise"]
-margin_top = 54.0
-margin_right = 40.0
-margin_bottom = 68.0
-text = "Seed: "
-
-[node name="Lacunarity" type="Label" parent="UI_Noise"]
-margin_top = 72.0
-margin_right = 40.0
-margin_bottom = 86.0
-text = "Seed: "
 
 [node name="UI" parent="." instance=ExtResource( 1 )]
 

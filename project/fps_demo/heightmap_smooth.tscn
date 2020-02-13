@@ -8,9 +8,9 @@
 [ext_resource path="res://blocky_terrain/noise_distorted.png" type="Image" id=6]
 [ext_resource path="res://fps_demo/materials/grass-rock.material" type="Material" id=7]
 
-[sub_resource type="VoxelStreamImage" id=1]
+[sub_resource type="VoxelGeneratorImage" id=1]
 image = ExtResource( 6 )
-channel = 1
+blur_enabled = true
 
 [sub_resource type="Voxel" id=2]
 transparent = true
@@ -47,5 +47,4 @@ stream = SubResource( 1 )
 voxel_library = SubResource( 4 )
 view_distance = 256
 viewer_path = NodePath("../Player")
-smooth_meshing_enabled = true
 material/0 = ExtResource( 7 )

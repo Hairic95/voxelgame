@@ -1,19 +1,22 @@
-extends VoxelStream
+extends VoxelGenerator
 
-var voxel_channel:int	= 1								# 0 Blocky / 1 Smooth
 var amplitude:float = 10.0
 var period:Vector2 = Vector2(1/10.0, 1/10.0)
 
+export var channel:int = VoxelBuffer.CHANNEL_SDF
+
+func get_used_channels_mask () -> int:
+	return 1<<channel
 	
-func emerge_block(out_buffer:VoxelBuffer, origin:Vector3, lod:int):
-	
-# Draw on LOD 0
-	if lod != 0: 
+func generate_block(out_buffer:VoxelBuffer, origin:Vector3, lod:int) -> void:
+
+# Draw on LOD 0 just for testing. Look in C++ noise generators to see how LODs are calculated.
+	if lod > 0:
 		return
 
 # Draw a flat plane at origin.y == 0
 #	if origin.y < 0: 
-#		out_buffer.fill(1, voxel_type)
+#		out_buffer.fill(1, channel)
 #		return
 		
 # Draw 3D sine waves	
@@ -29,4 +32,4 @@ func emerge_block(out_buffer:VoxelBuffer, origin:Vector3, lod:int):
 				rh = size.y
 
 			for ry in range(0, rh):
-				out_buffer.set_voxel(1, rx, ry, rz, voxel_channel);
+				out_buffer.set_voxel(1, rx, ry, rz, channel);

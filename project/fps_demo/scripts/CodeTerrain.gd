@@ -2,17 +2,17 @@
 
 extends "WorldCommon.gd"
 
-const MyStream = preload ("MyStream.gd")
+const MyStream = preload("MyStream.gd")
 
-const MATERIAL = preload("res://fps_demo/materials/grass-rock.material")
+const MATERIAL = preload("res://fps_demo/materials/color_grid.material")
 const HEIGHT_MAP = preload("res://blocky_terrain/noise_distorted.png")
 
 var terrain
 
-func _ready():
+func _ready() -> void:
 	create_terrain()
 	
-func _input(event):
+func _input(event) -> void:
 	
 	if event is InputEventKey and Input.is_key_pressed(KEY_DELETE):
 		terrain.free()
@@ -21,75 +21,68 @@ func _input(event):
 		create_terrain()		
 
 	
-func create_terrain():
+func create_terrain() -> void:
 	
 ##### Folllow the instructions to use the various types of terrains available
 	
 ##### 1. Choose VoxelTerrain or VoxelLodTerrain
 
+## A. VoxelTerrain
+
 	terrain = VoxelTerrain.new()
+	terrain.view_distance = 256
+	terrain.set_material(0, MATERIAL)
+
+## B. VoxelLodTerrain
+
 #	terrain = VoxelLodTerrain.new()
-
-
-##### 2. Select Blocky=0 or Smooth=1  (VLT is always smooth)
-
-	var voxel_channel = 0
-#	var voxel_channel = 1
+#	terrain.view_distance = 2048
+#	terrain.lod_count = 6
+#	terrain.lod_split_scale = 3
+#	terrain.set_material(MATERIAL)
 	
+
 	
-##### 3. Pick one of the following three example sections:
+##### 2. Select one of the data streams:
 	
 ## A. Custom GDScript stream 
 ## This generates a 3D sine wave with GDScript
 
 	terrain.stream = MyStream.new()
-	terrain.stream.voxel_channel = voxel_channel
-	
 
-## B. C++ Stream (Example is VT Only)
+## B. C++ Stream
 ## This generates a 3D sine wave from C++ and is considerably faster.
-## This example is hard coded to draw blocky voxels so doesn't work with VLT, but you could write your own in C++.
 
-#	terrain.stream = VoxelStreamTest.new() 
-
+#	terrain.stream = VoxelGeneratorTest.new()
 
 ## C. Image based stream
 
-#	terrain.stream = VoxelStreamImage.new()
+#	terrain.stream = VoxelGeneratorImage.new()
 #	terrain.stream.image = HEIGHT_MAP
-#	terrain.stream.channel = voxel_channel
 #	$Player.translate(Vector3(0,35,0))		# Not required, just aids the demo
-
 
 ## D. 3D Noise stream
 
-#	terrain.stream = VoxelStreamNoise.new()
+#	terrain.stream = VoxelGeneratorNoise.new()
 #	terrain.stream.noise = OpenSimplexNoise.new()
-#	terrain.stream.channel = voxel_channel
 #	$Player.translate(Vector3(0,200,0))		# Not required, just aids the demo
 
 
-##### 4. Uncomment the block that matches #1
 
-## A. VoxelTerrain
+##### 3. Select a blocky or smooth terrain type
 
-	terrain.voxel_library = VoxelLibrary.new()
-	if voxel_channel==1:
-		terrain.smooth_meshing_enabled = true	
-	terrain.view_distance = 256	
-	terrain.set_material(0, MATERIAL)
+## A. Blocky (TYPE)
 
+	terrain.stream.channel = VoxelBuffer.CHANNEL_TYPE
 
-## B. VoxelLodTerrain
+## B. Smooth (SDF). Note: VoxelLodTerrain only supports smooth.
 
-#	terrain.view_distance = 2048
-#	terrain.lod_count = 6
-#	terrain.lod_split_scale = 3
-#	terrain.set_material(MATERIAL)
+#	terrain.stream.channel = VoxelBuffer.CHANNEL_SDF
 
 
-##### 5. Stop - Applicable to all
+##### 4. Stop - Applicable to all
 
+	terrain.generate_collisions = true
 	terrain.viewer_path = "/root/World/Player"
 	terrain.name = "VoxelTerrain"
 	add_child(terrain)

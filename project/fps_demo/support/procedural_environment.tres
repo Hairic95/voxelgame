@@ -14,7 +14,7 @@ sun_energy = 30.0
 [resource]
 background_mode = 2
 background_sky = SubResource( 1 )
-ambient_light_color = Color( 0.501961, 0.501961, 0.501961, 1 )
+ambient_light_color = Color( 0.5, 0.5, 0.5, 1 )
 ambient_light_energy = 3.0
 ambient_light_sky_contribution = 0.2
 fog_color = Color( 0.384, 0.482133, 0.64, 1 )
