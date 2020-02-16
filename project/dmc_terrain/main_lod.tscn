@@ -23,7 +23,7 @@ octaves = 6
 period = 256.0
 persistence = 0.4
 
-[sub_resource type="VoxelStreamNoise" id=5]
+[sub_resource type="VoxelGeneratorNoise" id=5]
 noise = SubResource( 4 )
 height_range = 1200.0
 

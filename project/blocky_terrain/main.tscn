@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://blocky_terrain/provider_image.tres" type="VoxelStreamImage" id=1]
+[ext_resource path="res://blocky_terrain/provider_image.tres" type="VoxelGeneratorImage" id=1]
 [ext_resource path="res://blocky_terrain/terrain_material.tres" type="Material" id=2]
 [ext_resource path="res://blocky_terrain/terrain_marerial_transparent.tres" type="Material" id=3]
 [ext_resource path="res://common/axes.tscn" type="PackedScene" id=4]

@@ -1,4 +1,4 @@
-[gd_resource type="VoxelStreamNoise" load_steps=2 format=2]
+[gd_resource type="VoxelGeneratorNoise" load_steps=2 format=2]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 octaves = 6
