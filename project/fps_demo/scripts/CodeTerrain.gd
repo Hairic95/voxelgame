@@ -29,17 +29,17 @@ func create_terrain() -> void:
 
 ## A. VoxelTerrain
 
-	terrain = VoxelTerrain.new()
-	terrain.view_distance = 256
-	terrain.set_material(0, MATERIAL)
+#	terrain = VoxelTerrain.new()
+#	terrain.view_distance = 256
+#	terrain.set_material(0, MATERIAL)
 
 ## B. VoxelLodTerrain
 
-#	terrain = VoxelLodTerrain.new()
-#	terrain.view_distance = 2048
-#	terrain.lod_count = 6
-#	terrain.lod_split_scale = 3
-#	terrain.set_material(MATERIAL)
+	terrain = VoxelLodTerrain.new()
+	terrain.view_distance = 2048
+	terrain.lod_count = 6
+	terrain.lod_split_scale = 3
+	terrain.set_material(MATERIAL)
 	
 
 	
@@ -53,7 +53,7 @@ func create_terrain() -> void:
 ## B. C++ Stream
 ## This generates a 3D sine wave from C++ and is considerably faster.
 
-#	terrain.stream = VoxelGeneratorTest.new()
+#	terrain.stream = VoxelGeneratorWaves.new()
 
 ## C. Image based stream
 
@@ -73,11 +73,11 @@ func create_terrain() -> void:
 
 ## A. Blocky (TYPE)
 
-	terrain.stream.channel = VoxelBuffer.CHANNEL_TYPE
+#	terrain.stream.channel = VoxelBuffer.CHANNEL_TYPE
 
 ## B. Smooth (SDF). Note: VoxelLodTerrain only supports smooth.
 
-#	terrain.stream.channel = VoxelBuffer.CHANNEL_SDF
+	terrain.stream.channel = VoxelBuffer.CHANNEL_SDF
 
 
 ##### 4. Stop - Applicable to all

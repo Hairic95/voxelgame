@@ -1,35 +1,46 @@
 extends VoxelGenerator
 
-var amplitude:float = 10.0
-var period:Vector2 = Vector2(1/10.0, 1/10.0)
-
+export var amplitude:float = 10.0
+export var period:Vector2 = Vector2(1/10.0, 1/10.0)
+export var iso_scale:float = 0.1
 export var channel:int = VoxelBuffer.CHANNEL_SDF
 
 func get_used_channels_mask () -> int:
 	return 1<<channel
 	
 func generate_block(out_buffer:VoxelBuffer, origin:Vector3, lod:int) -> void:
+	# Draw a flat plane at origin.y == 0
+	#if origin.y < 0:
+	#	out_buffer.fill(1, channel)
+	#	return
 
-# Draw on LOD 0 just for testing. Look in C++ noise generators to see how LODs are calculated.
-	if lod > 0:
-		return
+	# Draw 3D sine waves
+	var stride:int = 1 << lod
+	var size:Vector3 = out_buffer.get_size()
 
-# Draw a flat plane at origin.y == 0
-#	if origin.y < 0: 
-#		out_buffer.fill(1, channel)
-#		return
-		
-# Draw 3D sine waves	
-	var size = out_buffer.get_size()
-	for rz in range(0, size.z):
-		for rx in range(0, size.x):
-			var x:float = origin.x + rx
-			var z:float = origin.z + rz
+	var gz:int = origin.z
+	for z in range(0, size.z):
 
-			var h:int = amplitude * (cos(x * period.x) + sin(z * period.y)) # Y is correct
-			var rh:int = h - origin.y
-			if rh > size.y:
-				rh = size.y
+		var gx:int = origin.x
+		for x in range(0, size.x):
 
-			for ry in range(0, rh):
-				out_buffer.set_voxel(1, rx, ry, rz, channel);
+			var ht:float = amplitude * (cos(gx * period.x) + sin(gz * period.y)) # Y is correct
+
+			if channel == VoxelBuffer.CHANNEL_SDF:
+				var gy:int = origin.y
+				for y in range(0, size.y):
+					var sdf:float = iso_scale * (gy-ht)
+					out_buffer.set_voxel_f(sdf, x, y, z, channel)
+					gy += stride
+					# } for y
+			else:
+				ht -= origin.y
+				if ht > size.y:
+					ht = size.y
+				out_buffer.fill_area(1, Vector3(x, 0, z), Vector3(x+1, ht, z+1), channel)
+
+			gx += stride
+			# } for x
+
+		gz += stride
+		# } for z
