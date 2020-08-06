@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="New Game Project"
-run/main_scene="res://smooth_terrain/main.tscn"
+run/main_scene="res://blocky_game/blocky_game.tscn"
 config/icon="res://icon.png"
 
 [autoload]
